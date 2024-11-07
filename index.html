@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Are Hacked!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: red;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #hacked-message {
+            font-size: 3rem;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        #loading {
+            margin-top: 20px;
+            font-size: 1.5rem;
+        }
+        #fake-console {
+            display: none;
+            width: 100%;
+            height: 50%;
+            background-color: #111;
+            color: #0f0;
+            padding: 10px;
+            overflow-y: auto;
+            text-align: left;
+            border: 2px solid #0f0;
+        }
+        #countdown {
+            margin-top: 20px;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="hacked-message">YOU ARE HACKED!</div>
+    <div id="loading">Scanning personal files...</div>
+    <div id="fake-console"></div>
+    <div id="countdown"></div>
+    <script>
+        // Initial fake loading animation
+        setTimeout(() => {
+            document.getElementById('loading').innerText = "Decrypting sensitive information...";
+        }, 2000);
+
+        setTimeout(() => {
+            document.getElementById('loading').innerText = "Accessing data...";
+        }, 4000);
+
+        setTimeout(() => {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('fake-console').style.display = 'block';
+            startFakeConsole();
+        }, 6000);
+
+        // Fake console output
+        function startFakeConsole() {
+            const consoleElement = document.getElementById('fake-console');
+            const fakeFiles = [
+                "Retrieving... password_list.txt",
+                "Fetching... bank_details.docx",
+                "Decrypting... personal_photos.zip",
+                "Accessing... contacts.db",
+                "Extracting... browser_history.json"
+            ];
+
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index < fakeFiles.length) {
+                    consoleElement.innerHTML += fakeFiles[index] + "<br>";
+                    consoleElement.scrollTop = consoleElement.scrollHeight; // Auto-scroll
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    startCountdown();
+                }
+            }, 1500);
+        }
+
+        // Countdown timer
+        function startCountdown() {
+            const countdownElement = document.getElementById('countdown');
+            let timeLeft = 10;
+            countdownElement.innerText = `Self-Destruction in: ${timeLeft}`;
+
+            const countdownInterval = setInterval(() => {
+                timeLeft--;
+                countdownElement.innerText = `Self-Destruction in: ${timeLeft}`;
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    revealPrank();
+                }
+            }, 1000);
+        }
+
+        // Reveal the prank
+        function revealPrank() {
+            document.body.style.backgroundColor = '#222';
+            document.body.style.color = '#0f0';
+            document.getElementById('hacked-message').innerText = "Never Trust Anyone!";
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('fake-console').style.display = 'none';
+            document.getElementById('countdown').innerText = "Just kidding! You've been pranked!";
+        }
+    </script>
+</body>
+</html>
